@@ -5,7 +5,7 @@ from .models import Event
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['id', 'title', 'description', 'date_time', 'location', 'capacity', 'created_at']
+        fields = ['id', 'title', 'description', 'date_time', 'location', 'capacity', 'created_date']
 
     def validate_date_time(self, value):
         # Ensure that the event date and time are not in the past

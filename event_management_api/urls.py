@@ -17,10 +17,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.http import JsonResponse
+
+
+def api_root(request):
+    return JsonResponse({
+        "message": "Welcome to the Event Management API!",
+        "endpoints": {
+            "Event List/Create": "/api/events/",
+            "Event Detail (CRUD)": "/api/events/<int:pk>/",
+            "Token Obtain": "/api/token/",
+            "Token Refresh": "/api/token/refresh/",
+        }
+    })
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('events.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('', api_root, name='api_root'),  # Add this for the root URL
 ]
